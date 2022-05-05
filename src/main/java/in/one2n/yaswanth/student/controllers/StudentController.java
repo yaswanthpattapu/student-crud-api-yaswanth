@@ -5,7 +5,6 @@ import in.one2n.yaswanth.student.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,15 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public void addNewStudent(@RequestBody Student student) {
-        student.setCreated_at(new Timestamp(System.currentTimeMillis()));
-        student.setUpdated_at(new Timestamp(System.currentTimeMillis()));
-        studentService.addNewStudent(student);
+    @ResponseBody
+    public Student addNewStudent(@RequestBody Student student) {
+        return studentService.addNewStudent(student);
+    }
+
+    @PutMapping("/students")
+    @ResponseBody
+    public Student updateStudent(@RequestBody Student student) {
+        return studentService.updateStudent(student);
     }
 
     @DeleteMapping("/students/{id}")
